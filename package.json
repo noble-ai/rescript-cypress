@@ -1,0 +1,36 @@
+{
+  "name": "@nobleai/rescript-cypress",
+  "version": "7.7.0",
+  "description": "Rescript bindings for Cypress",
+  "files": [
+    "README.md",
+    "Changes.md",
+    "LICENSE",
+    "bsconfig.json",
+    "src/**/*.res",
+    "src/**/*.resi"
+  ],
+  "scripts": {
+    "build": "bsb -make-world",
+    "start": "bsb -make-world -w",
+    "clean": "bsb -clean-world",
+    "test": "echo 'tests disabled for now'"
+  },
+  "keywords": [
+    "rescript",
+    "cypress"
+  ],
+  "author": "Alex Mouton <alex.mouton@noble.ai>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://github.com/noble-ai/rescript-cypress.git"
+  },
+  "devDependencies": {
+    "rescript": "^9.1.4",
+    "cypress": "^7.7"
+  },
+  "peerDependencies": {
+    "cypress": "7.7"
+  }
+}

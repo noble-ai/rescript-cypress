@@ -1,6 +1,6 @@
 {
   "name": "rescript-cypress",
-  "version": "7.7.0",
+  "version": "7.7.1",
   "description": "Rescript bindings for Cypress",
   "files": [
     "README.md",
@@ -27,8 +27,8 @@
     "url": "git+ssh://github.com/noble-ai/rescript-cypress.git"
   },
   "devDependencies": {
-    "rescript": "^9.1.4",
-    "cypress": "^7.7"
+    "cypress": "^7.7",
+    "rescript": "^9.1.4"
   },
   "peerDependencies": {
     "cypress": "7.7"

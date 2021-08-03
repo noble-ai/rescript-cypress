@@ -1,4 +1,4 @@
 {
-  "name": "rescript-cypress",
+  "name": "@nobleai/rescript-cypress",
   "sources": ["src"]
 }

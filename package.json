@@ -1,5 +1,5 @@
 {
-  "name": "rescript-cypress",
+  "name": "@nobleai/rescript-cypress",
   "version": "7.7.2",
   "description": "Rescript bindings for Cypress",
   "files": [

@@ -15,7 +15,7 @@
     "start": "bsb -make-world -w",
     "clean": "bsb -clean-world",
     "test": "echo 'tests disabled for now'",
-    "publish": "yarn publish --scope nobleai --access public"
+    "pub": "yarn publish --scope nobleai --access public"
   },
   "keywords": [
     "rescript",

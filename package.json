@@ -1,5 +1,5 @@
 {
-  "name": "@nobleai/rescript-cypress",
+  "name": "rescript-cypress",
   "version": "7.7.1",
   "description": "Rescript bindings for Cypress",
   "files": [
@@ -14,7 +14,8 @@
     "build": "bsb -make-world",
     "start": "bsb -make-world -w",
     "clean": "bsb -clean-world",
-    "test": "echo 'tests disabled for now'"
+    "test": "echo 'tests disabled for now'",
+    "publish": "yarn publish --scope nobleai --access public"
   },
   "keywords": [
     "rescript",

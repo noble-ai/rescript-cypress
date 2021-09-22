@@ -6,6 +6,9 @@ type root
 // Using type cy as the identifier for cypress products both chained and not.
 type cy<'a>
 
+// Throw away a cypress value
+external void: cy<'a> => unit = "%identity"
+
 @val @scope("window")
 external cypress: option<cypress> = "Cypress"
 
@@ -21,8 +24,23 @@ external return: 'a => cy<'a> = "%identity"
 @val @scope("window")
 external cy: cy<root> = "cy"
 
-// Throw away a cypress value
-external void: cy<'a> => unit = "%identity"
+@deriving(abstract)
+type optLogTimeout = {
+  @optional timeout: int,
+  @optional log: bool,
+}
+
+@send external documentImpl: (cy<root>, 'opt) => cy<'document> = "document"
+
+// let url = (cy, ~decode=?, ~log=?, ~timeout=?, ()) => {
+//   3
+// }
+// let document = (c, log, ~timeout=?, ()) = {
+//   c->documentImpl(optDocument(log, timeout)) 
+// }
+let document = (cy, ~log=?, ~timeout=?, ()) => {
+  cy->documentImpl(optLogTimeout(~log?, ~timeout?))
+}
 
 // An opaque type for cypress queries returning an element
 // This is ostensibly a jquery object with one value
@@ -70,7 +88,18 @@ let visit = (cy, path, ~auth: option<auth>=?, ()) => {
 }
 @send external go: (cy<root>, string) => cy<root> = "go"
 @send external back: cy<root> => cy<root> = "back"
-@send external url: cy<root> => cy<string> = "url"
+
+@deriving(abstract)
+type optUrl = {
+  @optional decode: bool,
+  @optional log: bool,
+  @optional timeout: int,
+}
+
+@send external urlImpl: (cy<root>, 'opt) => cy<string> = "url"
+let url = (cy, ~decode=?, ~log=?, ~timeout=?, ()) => {
+  cy->urlImpl(optUrl(~decode?, ~log?, ~timeout?))
+}
 
 type position = [
   | #topLeft
@@ -127,8 +156,8 @@ let get = (cy, string, ~timeout=?, ()) => {
 
 @send external getId: (cy<root>, string) => cy<element> = "get"
 
-@send external titleImpl: cy<root> => cy<string> = "title"
-let title = cy => cy->titleImpl
+@send external titleImpl: (cy<root>, 'opt) => cy<string> = "title"
+let title = (cy, ~log=?, ~timeout=?, ()) => cy->titleImpl(optLogTimeout(~log?, ~timeout?))
 
 @send external invoke: (cy<element>, string) => cy<'out> = "invoke"
 @send external its: (cy<element>, string) => cy<'out> = "its"

@@ -28,7 +28,7 @@
     "url": "git+ssh://github.com/noble-ai/rescript-cypress.git"
   },
   "devDependencies": {
-    "cypress": "^7.7",
+    "cypress": "^8.4.1",
     "rescript": "^9.1.4"
   },
   "peerDependencies": {

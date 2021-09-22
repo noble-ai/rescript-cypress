@@ -1,6 +1,6 @@
 {
   "name": "@nobleai/rescript-cypress",
-  "version": "7.7.2",
+  "version": "8.4.1",
   "description": "Rescript bindings for Cypress",
   "files": [
     "README.md",

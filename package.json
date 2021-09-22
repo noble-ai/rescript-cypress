@@ -11,9 +11,9 @@
     "src/**/*.resi"
   ],
   "scripts": {
-    "build": "bsb -make-world",
-    "start": "bsb -make-world -w",
-    "clean": "bsb -clean-world",
+    "build": "rescript build",
+    "start": "rescript build -w",
+    "clean": "rescript clean",
     "test": "echo 'tests disabled for now'",
     "pub": "yarn publish --scope nobleai --access public"
   },

@@ -160,6 +160,9 @@ let get = (cy, string, ~timeout=?, ()) => {
 let title = (cy, ~log=?, ~timeout=?, ()) => cy->titleImpl(optLogTimeout(~log?, ~timeout?))
 
 @send external invoke: (cy<element>, string) => cy<'out> = "invoke"
+@send external invoke1: (cy<element>, string, string) => cy<'out> = "invoke"
+@send external invoke2: (cy<element>, string, string, string) => cy<'out> = "invoke"
+@send external invoke3: (cy<element>, string, string, string, string) => cy<'out> = "invoke"
 @send external its: (cy<element>, string) => cy<'out> = "its"
 
 // Operation

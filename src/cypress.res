@@ -206,6 +206,37 @@ let trigger = (cy, a, ~force=?, ()) => {
   cy->triggerImpl(a, {"force": force})
 }
 
+// Logging
+
+type clip = {
+  x: int,
+  y: int,
+  width: int,
+  height: int,
+}
+
+type padding = (int, int, int, int)
+
+@deriving(abstract)
+type optScreenshot = {
+  @optional log: bool, //	true	Displays the command in the Command log
+  @optional blackout: array<string>, //	[]	Array of string selectors used to match elements that should be blacked out when the screenshot is taken. Does not apply to runner captures.
+  @optional capture: [#fullPage | #viewport | #runner ], //	'fullPage'	Which parts of the Test Runner to capture. This value is ignored for element screenshot captures. Valid values are viewport, fullPage, or runner. When viewport, the application under test is captured in the current viewport. When fullPage, the application under test is captured in its entirety from top to bottom. When runner, the entire browser viewport, including the Cypress Command Log, is captured. For screenshots automatically taken on test failure, capture is always coerced to runner.
+  @optional clip: clip, //	null	Position and dimensions (in pixels) used to crop the final screenshot image. Should have the following shape: { x: 0, y: 0, width: 100, height: 100 }
+  @optional disableTimersAndAnimations: bool, //	true	When true, prevents JavaScript timers (setTimeout, setInterval, etc) and CSS animations from running while the screenshot is taken.
+  @optional padding: padding, //	null	Padding used to alter the dimensions of a screenshot of an element. It can either be a number, or an array of up to four numbers using CSS shorthand notation. This property is only applied for element screenshots and is ignored for all other types.
+  @optional scale: bool, //	false	Whether to scale the app to fit into the browser viewport. This is always coerced to true when capture is runner.
+  @optional timeout: int, //	responseTimeout	Time to wait for .screenshot() to resolve before timing out
+  @optional overwrite: bool, //	false	Whether to overwrite duplicate screenshot files with the same file name when saving.
+  @optional onBeforeScreenshot: unit => unit, //	null	A callback before a non-failure screenshot is taken. When capturing screenshots of an element, the argument is the element being captured. For other screenshots, the argument is the document.
+  @optional onAfterScreenshot: unit => unit, //	null	A callback after a non-failure screenshot is taken. When capturing screenshots of an element, the first argument is the element being captured. For other screenshots, the first argument is the document. The second argument is properties concerning the screenshot, including the path it was saved to and the dimensions of the saved screenshot.0
+}
+
+@send external screenshotImpl: (cy<'any>, string, optScreenshot) => cy<string> = "screenshot"
+let screenshot = (cy, a, ~log=?, ~timeout=?, ~blackout=?, ~capture=?, ~clip=?, ~disableTimersAndAnimations=?, ~padding=?, ~scale=?, ~overwrite=?, ~onBeforeScreenshot=?, ~onAfterScreenshot=?, ()) => {
+  cy->screenshotImpl(a, optScreenshot(~log?, ~blackout?, ~capture?, ~clip?, ~disableTimersAndAnimations?, ~padding?, ~scale?, ~timeout?, ~overwrite?, ~onBeforeScreenshot?, ~onAfterScreenshot?, ()))
+}
+
 // Testing
 @send external should: (cy<'a>, 'pred) => cy<'a> = "should"
 // Should using a comparison value Cmp=Compare

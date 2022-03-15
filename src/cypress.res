@@ -117,8 +117,24 @@ type position = [
 
 // Evaluation
 @send external within: (cy<'e>, unit => 'b) => cy<'e> = "within"
-@send external select: (cy<element>, string) => cy<element> = "select"
-@send external selectMany: (cy<element>, array<string>) => cy<element> = "select"
+
+@deriving(abstract)
+type flt = {
+  @optional force: bool,
+  @optional log: bool,
+  @optional timeout: int,
+}
+
+@send external selectImpl: (cy<element>, string, flt) => cy<element> = "select"
+let select = (cy, str, ~force=?, ~log=?, ~timeout=?, ()) => {
+  cy->selectImpl(str, flt(~force?, ~log?, ~timeout?, ()))
+}
+
+@send external selectManyImpl: (cy<element>, array<string>, flt) => cy<element> = "select"
+let selectMany = (cy, strs, ~force=?, ~log=?, ~timeout=?, ()) => {
+  cy->selectManyImpl(strs, flt(~force?, ~log?, ~timeout?, ()))
+}
+
 @send external find: (cy<elements>, string) => cy<element> = "find"
 @send external findE: (cy<element>, string) => cy<element> = "find"
 @send external first: (cy<elements>, unit) => cy<element> = "first" // option<'a>?

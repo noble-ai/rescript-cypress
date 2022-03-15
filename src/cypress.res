@@ -130,9 +130,19 @@ let select = (cy, str, ~force=?, ~log=?, ~timeout=?, ()) => {
   cy->selectImpl(str, flt(~force?, ~log?, ~timeout?, ()))
 }
 
+@send external selectIndexImpl: (cy<element>, int, flt) => cy<element> = "select"
+let selectIndex = (cy, index, ~force=?, ~log=?, ~timeout=?, ()) => {
+  cy->selectIndexImpl(index, flt(~force?, ~log?, ~timeout?, ()))
+}
+
 @send external selectManyImpl: (cy<element>, array<string>, flt) => cy<element> = "select"
 let selectMany = (cy, strs, ~force=?, ~log=?, ~timeout=?, ()) => {
   cy->selectManyImpl(strs, flt(~force?, ~log?, ~timeout?, ()))
+}
+
+@send external selectManyIndexImpl: (cy<element>, array<int>, flt) => cy<element> = "select"
+let selectManyIndex = (cy, indexs, ~force=?, ~log=?, ~timeout=?, ()) => {
+  cy->selectManyIndexImpl(indexs, flt(~force?, ~log?, ~timeout?, ()))
 }
 
 @send external find: (cy<elements>, string) => cy<element> = "find"

@@ -146,7 +146,7 @@ let selectManyIndex = (cy, indexs, ~force=?, ~log=?, ~timeout=?, ()) => {
 }
 
 @send external find: (cy<elements>, string) => cy<element> = "find"
-@send external findE: (cy<element>, string) => cy<element> = "find"
+@send external findElement: (cy<element>, string) => cy<element> = "find"
 @send external first: (cy<elements>, unit) => cy<element> = "first" // option<'a>?
 @send external then: (cy<'a>, 'a => 'b) => cy<'b> = "then"
 @send external parents: (cy<element>, string) => cy<elements> = "parents"
@@ -173,14 +173,6 @@ let contains = (cy, selector, content, ~matchCase=?, ~log=?, ~timeout=?, ~includ
 let containsElement = (cy, content, ~matchCase=?, ~log=?, ~timeout=?, ~includeShadowDom=?, ()) => {
   cy->containsElementImpl(content, optContains(~matchCase?, ~log?, ~timeout?, ~includeShadowDom?, ()))
 }
-// Specify element type and content
-// @send external containsEe: (cy<element>, string, string) => cy<element> = "contains"
-
-// Specify content
-// @send external containsEImpl: (cy<element>, string, 'opts) => cy<element> = "contains"
-// let containsE = (cy, s, ~matchCase=?, ()) => {
-//   cy->containsEImpl(s, {"matchCase": matchCase})
-// }
 
 @send external getImpl: (cy<root>, string, 'opts) => cy<elements> = "get"
 let get = (cy, string, ~timeout=?, ()) => {
@@ -201,7 +193,7 @@ let title = (cy, ~log=?, ~timeout=?, ()) => cy->titleImpl(optLogTimeout(~log?, ~
 // Operation
 @send external checkImpl: (cy<'c>, 'opts) => cy<'c> = "check"
 let check = (cy, ~force=false, ()) => cy->checkImpl({"force": force})
-// let checkE = (cy, ~force=false, ()) => cy->checkImpl({"force": force})
+// let checkElement = (cy, ~force=false, ()) => cy->checkImpl({"force": force})
 
 @send external uncheckImpl: (cy<'c>, 'opts) => cy<'c> = "uncheck"
 let uncheck = (cy, ~force=false, ()) => cy->uncheckImpl({"force": force})

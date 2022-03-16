@@ -150,30 +150,42 @@ let selectManyIndex = (cy, indexs, ~force=?, ~log=?, ~timeout=?, ()) => {
 @send external first: (cy<elements>, unit) => cy<element> = "first" // option<'a>?
 @send external then: (cy<'a>, 'a => 'b) => cy<'b> = "then"
 @send external parents: (cy<element>, string) => cy<elements> = "parents"
-@send external containsRootImpl: (cy<root>, 'param, 'opts) => cy<element> = "contains"
-let containsRoot = (cy, a, ~timeout=?, ~matchCase=?, ()) => {
-  cy->containsRootImpl(a, {"timeout": timeout, "matchCase": matchCase})
+
+@deriving(abstract)
+type optContains = {
+  @optional matchCase: bool, //	true	Check case sensitivity
+  @optional log: bool, //	true	Displays the command in the Command log
+  @optional timeout: int, //	defaultCommandTimeout	Time to wait for .contains() to resolve before timing out
+  @optional includeShadowDom: bool, 	//includeShadowDom config option value	Whether to traverse shadow DOM boundaries and include elements within the shadow DOM in the yielded results.
 }
 
-let containsRootRe = (cy, a: Js.Re.t, ~timeout=?, ~matchCase=?, ()) => {
-  cy->containsRootImpl(a, {"timeout": timeout, "matchCase": matchCase})
+@send external containsRootImpl: (cy<root>, @unwrap [#Re(Js.Re.t) | #Str(string)], 'opts) => cy<element> = "contains"
+let containsRoot = (cy, content, ~matchCase=?, ~log=?, ~timeout=?, ~includeShadowDom=?, ()) => {
+  cy->containsRootImpl(#Str(content), optContains(~matchCase?, ~log?, ~timeout?, ~includeShadowDom?, ()) )
 }
 
-@send external containsImpl: (cy<'e>, string, string, 'opts) => cy<element> = "contains"
-let contains = (cy, a, b, ~timeout=?, ~matchCase=?, ()) => {
-  cy->containsImpl(a, b, {"timeout": timeout, "matchCase": matchCase})
+let containsRootRe = (cy, re: Js.Re.t, ~matchCase=?, ~log=?, ~timeout=?, ~includeShadowDom=?, ()) => {
+  cy->containsRootImpl(#Re(re), optContains(~matchCase?, ~log?, ~timeout?, ~includeShadowDom?, ()))
 }
 
-@send external containsRe: (cy<root>, string, Js.Re.t) => cy<element> = "contains"
+@send external containsImpl: (cy<'e>, string, string, optContains) => cy<element> = "contains"
+let contains = (cy, selector, content, ~matchCase=?, ~log=?, ~timeout=?, ~includeShadowDom=?, ()) => {
+  cy->containsImpl(selector, content, optContains(~matchCase?, ~log?, ~timeout?, ~includeShadowDom?, ()))
+}
+
+@send external containsReImpl: (cy<'e>, string, Js.Re.t, 'opts) => cy<element> = "contains"
+let containsRe = (cy, selector, re, ~matchCase=?, ~log=?, ~timeout=?, ~includeShadowDom=?, ()) => {
+  cy->containsReImpl(selector, re, optContains(~matchCase?, ~log?, ~timeout?, ~includeShadowDom?, ()))
+}
 
 // Specify element type and content
-@send external containsEe: (cy<element>, string, string) => cy<element> = "contains"
+// @send external containsEe: (cy<element>, string, string) => cy<element> = "contains"
 
 // Specify content
-@send external containsEImpl: (cy<element>, string, 'opts) => cy<element> = "contains"
-let containsE = (cy, s, ~matchCase=?, ()) => {
-  cy->containsEImpl(s, {"matchCase": matchCase})
-}
+// @send external containsEImpl: (cy<element>, string, 'opts) => cy<element> = "contains"
+// let containsE = (cy, s, ~matchCase=?, ()) => {
+//   cy->containsEImpl(s, {"matchCase": matchCase})
+// }
 
 @send external getImpl: (cy<root>, string, 'opts) => cy<elements> = "get"
 let get = (cy, string, ~timeout=?, ()) => {

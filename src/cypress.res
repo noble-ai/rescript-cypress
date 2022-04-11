@@ -252,6 +252,8 @@ let screenshot = (cy, a, ~log=?, ~timeout=?, ~blackout=?, ~capture=?, ~clip=?, ~
 // Cypress utility
 @val external config: unit => 'config = "Cypress.config"
 @send external pause: cy<root> => unit = "pause"
+@send external pauseElements: cy<elements> => cy<elements> = "pause"
+
 @send external log: (cy<'a>, string) => unit = "log"
 @send external wait: (cy<root>, int) => unit = "wait"
 

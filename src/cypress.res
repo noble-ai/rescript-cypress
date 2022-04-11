@@ -147,7 +147,12 @@ let selectManyIndex = (cy, indexs, ~force=?, ~log=?, ~timeout=?, ()) => {
 
 @send external find: (cy<elements>, string) => cy<element> = "find"
 @send external findElement: (cy<element>, string) => cy<element> = "find"
-@send external first: (cy<elements>, unit) => cy<element> = "first" // option<'a>?
+
+// log	true	Displays the command in the Command log
+// timeout	defaultCommandTimeout	Time to wait for .first() to resolve before timing out
+@send external firstImpl: (cy<elements>, 'opt) => cy<element> = "first" // option<'a>?
+let first = (cy, ~log=false, ~timeout=?, ()) => cy->firstImpl(optLogTimeout(~log, ~timeout?))
+
 @send external then: (cy<'a>, 'a => 'b) => cy<'b> = "then"
 @send external parents: (cy<element>, string) => cy<elements> = "parents"
 

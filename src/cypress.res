@@ -46,14 +46,15 @@ let document = (cy, ~log=?, ~timeout=?, ()) => {
 // This is ostensibly a jquery object with one value
 // TODO: this could be unified with a nice dom rescript library? - AxM
 type element
+
 // Using jquery val here
 @send external val: element => string = "val"
 
-let value: element => string = %raw(`(e)=>e.value`)
+let value: element => string = %raw(`(e) => e.prop("value")`)
 @send external text: element => string = "text"
 
 // TODO: better dom element handling -AxM
-let checked: element => bool = %raw(`(e) => e.checked `)
+let checked: element => bool = %raw(`(e) => e.prop("checked")`)
 
 // An opque type for cypress queries returning multiple elements. is it an array really? - AxM
 type elements

@@ -154,6 +154,12 @@ let selectManyIndex = (cy, indexs, ~force=?, ~log=?, ~timeout=?, ()) => {
 @send external firstImpl: (cy<elements>, 'opt) => cy<element> = "first" // option<'a>?
 let first = (cy, ~log=false, ~timeout=?, ()) => cy->firstImpl(optLogTimeout(~log, ~timeout?))
 
+@send external lastImpl: (cy<elements>, 'opt) => cy<element> = "last" // option<'a>?
+let last = (cy, ~log=false, ~timeout=?, ()) => cy->lastImpl(optLogTimeout(~log, ~timeout?))
+
+@send external eqImpl: (cy<elements>, int, 'opt) => cy<element> = "eq" // option<'a>?
+let eq = (cy, index, ~log=false, ~timeout=?, ()) => cy->eqImpl(index, optLogTimeout(~log, ~timeout?))
+
 @send external then: (cy<'a>, 'a => 'b) => cy<'b> = "then"
 @send external parents: (cy<element>, string) => cy<elements> = "parents"
 

@@ -211,6 +211,8 @@ let check = (cy, ~force=false, ()) => cy->checkImpl({"force": force})
 let uncheck = (cy, ~force=false, ()) => cy->uncheckImpl({"force": force})
 
 @send external input: (cy<element>, string) => cy<element> = "type" // Rename to avoid keyword - AxM
+@send external blur: (cy<element>) => cy<element> = "blur"
+
 @send external scrollIntoView: (cy<element>, unit) => cy<element> = "scrollIntoView"
 @send external triggerImpl: (cy<element>, string, 'opts) => cy<element> = "trigger"
 let trigger = (cy, a, ~force=?, ()) => {

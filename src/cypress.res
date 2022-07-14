@@ -210,6 +210,7 @@ let check = (cy, ~force=false, ()) => cy->checkImpl({"force": force})
 @send external uncheckImpl: (cy<'c>, 'opts) => cy<'c> = "uncheck"
 let uncheck = (cy, ~force=false, ()) => cy->uncheckImpl({"force": force})
 
+@send external clear: (cy<element>) => cy<element> = "clear"
 @send external input: (cy<element>, string) => cy<element> = "type" // Rename to avoid keyword - AxM
 @send external blur: (cy<element>) => cy<element> = "blur"
 

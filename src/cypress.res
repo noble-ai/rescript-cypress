@@ -160,6 +160,7 @@ let last = (cy, ~log=false, ~timeout=?, ()) => cy->lastImpl(optLogTimeout(~log, 
 @send external eqImpl: (cy<elements>, int, 'opt) => cy<element> = "eq" // option<'a>?
 let eq = (cy, index, ~log=false, ~timeout=?, ()) => cy->eqImpl(index, optLogTimeout(~log, ~timeout?))
 
+@send external each: (cy<elements>, (element, int, array<element>) => unit) => cy<elements> = "each"
 @send external then: (cy<'a>, 'a => 'b) => cy<'b> = "then"
 @send external parents: (cy<element>, string) => cy<elements> = "parents"
 

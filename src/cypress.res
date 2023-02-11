@@ -302,3 +302,9 @@ type staticresponse = {
 @val external beforeEach: (@uncurry (unit => unit)) => unit = "beforeEach"
 @val external after: (@uncurry (unit => unit)) => unit = "after"
 @val external afterEach: (@uncurry (unit => unit)) => unit = "afterEach"
+
+@module("cypress/react")
+external mountReact: (React.element) => unit = "mount"
+
+@module("cypress/react18")
+external mountReact18: (React.element) => unit = "mount"

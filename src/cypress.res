@@ -187,9 +187,16 @@ let containsElement = (cy, content, ~matchCase=?, ~log=?, ~timeout=?, ~includeSh
   cy->containsElementImpl(content, optContains(~matchCase?, ~log?, ~timeout?, ~includeShadowDom?, ()))
 }
 
-@send external getImpl: (cy<root>, string, 'opts) => cy<elements> = "get"
-let get = (cy, string, ~timeout=?, ()) => {
-  cy->getImpl(string, {"timeout": timeout})
+type optGet = {
+  timeout?: int,
+}
+@send external getImpl: (cy<root>, string, optGet) => cy<elements> = "get"
+let get = (cy, string, ~timeout: option<int>=?, ()) => {
+  let opts = switch timeout {
+    | Some(timeout) => {timeout: timeout}
+    | _ => ({}: optGet)
+  }
+  cy->getImpl(string, opts)
 }
 
 @send external getId: (cy<root>, string) => cy<element> = "get"

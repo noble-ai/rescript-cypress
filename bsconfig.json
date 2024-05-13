@@ -1,4 +1,7 @@
 {
   "name": "@nobleai/rescript-cypress",
-  "sources": ["src"]
+  "sources": ["src"],
+  "bs-dependencies": [
+    "@rescript/react"
+  ]
 }

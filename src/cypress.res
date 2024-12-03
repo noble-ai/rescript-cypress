@@ -281,8 +281,8 @@ let screenshot = (cy, a, ~log=?, ~timeout=?, ~blackout=?, ~capture=?, ~clip=?, ~
 @send external exec: (cy<root>, string) => unit = "exec"
 @send external end: cy<'a> => unit = "end"
 
-type cookie = {value: string}
-@send external getCookie: (cy<root>, string) => cy<cookie> = "getCookie"
+type cookie = {name: string, value: string}
+@send external getCookie: (cy<root>, string) => cy<option<cookie>> = "getCookie"
 
 @send external clearCookies: cy<root> => unit = "clearCookies"
 

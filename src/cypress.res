@@ -282,7 +282,7 @@ let screenshot = (cy, a, ~log=?, ~timeout=?, ~blackout=?, ~capture=?, ~clip=?, ~
 @send external end: cy<'a> => unit = "end"
 
 type cookie = {name: string, value: string}
-@send external getCookie: (cy<root>, string) => cy<option<cookie>> = "getCookie"
+@send external getCookie: (cy<root>, string) => cy<Js.Nullable.t<cookie>> = "getCookie"
 
 @send external clearCookies: cy<root> => unit = "clearCookies"
 

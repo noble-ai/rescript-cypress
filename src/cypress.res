@@ -220,6 +220,9 @@ let uncheck = (cy, ~force=false, ()) => cy->uncheckImpl({"force": force})
 
 @send external clear: (cy<element>) => cy<element> = "clear"
 @send external input: (cy<element>, string) => cy<element> = "type" // Rename to avoid keyword - AxM
+@send external inputOptions: (cy<element>, string, 'opts) => cy<element> = "type"
+let input_no_parse_special_chars = (cy, i) => cy->inputOptions(i, {"parseSpecialCharSequences": false})
+
 @send external blur: (cy<element>) => cy<element> = "blur"
 
 @send external scrollIntoView: (cy<element>, unit) => cy<element> = "scrollIntoView"
